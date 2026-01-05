@@ -33,11 +33,11 @@ async function getToken(code: string) {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-            client_id: process.env.TWITCH_CLIENT_ID || '',
-            client_secret: process.env.TWITCH_CLIENT_SECRET || '',
+            client_id: process.env.TWITCH_CLIENT_ID!,
+            client_secret: process.env.TWITCH_CLIENT_SECRET!,
             code: code,
             grant_type: 'authorization_code',
-            redirect_uri: process.env.TWITCH_REDIRECT_URI || '',
+            redirect_uri: process.env.TWITCH_REDIRECT_URI!,
         }),
     })
 

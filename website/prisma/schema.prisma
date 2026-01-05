@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/_generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model TwitchUser {
+  id           String   @id // Twitch user ID
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+  scope        String
+
+  // User info from Twitch
+  login        String
+  displayName  String
+  profileImage String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("twitch_tokens")
+}

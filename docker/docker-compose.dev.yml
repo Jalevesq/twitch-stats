@@ -1,0 +1,46 @@
+services:
+  database:
+    container_name: database
+    image: postgres:18.1-alpine3.23
+    env_file:
+      - ../database/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    networks:
+      - streamhub-network
+
+  website:
+    container_name: website
+    build:
+      context: ../website
+      dockerfile: ../website/docker/dev.Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../website:/app  # ← Mount code for hot reload
+      - /app/node_modules  # ← Prevent overwriting node_modules
+      - /app/.next  # ← Prevent overwriting .next
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - streamhub-network
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  postgres_data:
+
+networks:
+  streamhub-network:
+    driver: bridge
+    name: streamhub-network

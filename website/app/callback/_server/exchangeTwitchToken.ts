@@ -13,8 +13,8 @@ export async function exchangeTwitchToken(code: string): Promise< { user?: Pick<
 
   const expiresAt = new Date(Date.now() + tokenData.expires_in * 1000)
 
-  console.log(`Tokens saved for user: ${user.login} (${user.id})`)
   await saveUserInDb(user, tokenData, expiresAt)
+  console.log(`Tokens saved for user: ${user.login} (${user.id})`)
 
   return {
       user: {

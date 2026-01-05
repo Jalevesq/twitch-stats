@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import {exchangeTwitchToken} from "@/app/callback/_server/exchangeTwitchToken";
+import {toast} from "sonner";
 
 export default function Callback() {
   const searchParams = useSearchParams();
@@ -13,77 +14,55 @@ export default function Callback() {
     const code = searchParams.get("code");
     const state = searchParams.get("state");
     const error = searchParams.get("error");
-    const errorDescription = searchParams.get("error_description");
 
-    // Check if user denied access
-    if (error) {
-      console.error(errorDescription);
-      localStorage.setItem(
-        "auth_error",
-        "Authentication failed, please try again later",
-      );
+    if (error == 'access_denied') {
+      toast.error("Access Denied", {description: "You denied access. If this is a mistake, please try again."});
       router.push("/");
       return;
+    } else if (error) {
+        toast.error("Authentication error. Please try again later.");
+        router.push("/");
+        return;
     }
 
-    // Verify state parameter
     const storedState = localStorage.getItem("twitch_oauth_state");
     const storedTimestamp = localStorage.getItem("twitch_oauth_timestamp");
 
     if (!storedState || !state || storedState !== state) {
       localStorage.removeItem("twitch_oauth_state");
       localStorage.removeItem("twitch_oauth_timestamp");
-      localStorage.setItem(
-        "auth_error",
-        "Invalid state parameter. Possible CSRF attack detected.",
-      );
+      toast.error("Invalid state parameter. Possible CSRF attack detected.")
       router.push("/");
       return;
     }
 
-    // Check if state is stale (older than 10 minutes)
     if (storedTimestamp) {
       const age = Date.now() - parseInt(storedTimestamp);
-      if (age > 10 * 60 * 1000) {
+      if (age > 1 * 60 * 1000) {
         localStorage.removeItem("twitch_oauth_state");
         localStorage.removeItem("twitch_oauth_timestamp");
-        localStorage.setItem(
-          "auth_error",
-          "Authentication session expired. Please try again.",
-        );
+        toast.error("Invalid Authentication. 10 minutes delay passed.")
         router.push("/");
         return;
       }
     }
 
-    // Clean up localStorage after successful validation
     localStorage.removeItem("twitch_oauth_state");
     localStorage.removeItem("twitch_oauth_timestamp");
 
     if (!code) {
-      localStorage.setItem(
-        "auth_error",
-        "No authorization code received, please try again later.",
-      );
+      toast.error("Invalid Authentication. No code.")
       router.push("/");
       return;
     }
 
     const handleTokenExchange = async () => {
-        console.log("HERE !")
       try {
         const result = await exchangeTwitchToken(code);
-        console.log(JSON.stringify(result));
-        // Success - redirect to dashboard
-        router.push("/");
+        router.push("/dashboard");
       } catch (error) {
         console.error("Token exchange error:", error);
-        localStorage.setItem(
-          "auth_error",
-          error instanceof Error
-            ? error.message
-            : "Authentication failed, please try again later",
-        );
+        toast.error("Authentication failed. Contact us if the error persist.");
         router.push("/");
       } finally {
         setIsProcessing(false);

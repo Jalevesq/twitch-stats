@@ -32,6 +32,7 @@ export default function RootLayout({
             <span>StreamHub</span>
           </div>
         </header>
+        <Toaster richColors />
         {children}
       </body>
     </html>

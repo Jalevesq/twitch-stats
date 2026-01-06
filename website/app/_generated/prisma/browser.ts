@@ -22,3 +22,8 @@ export * from './enums';
  * 
  */
 export type TwitchUser = Prisma.TwitchUserModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel

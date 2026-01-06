@@ -51,7 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  TwitchUser: 'TwitchUser'
+  TwitchUser: 'TwitchUser',
+  Session: 'Session'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -76,6 +77,7 @@ export const TwitchUserScalarFieldEnum = {
   refreshToken: 'refreshToken',
   expiresAt: 'expiresAt',
   scope: 'scope',
+  isValid: 'isValid',
   login: 'login',
   displayName: 'displayName',
   profileImage: 'profileImage',
@@ -84,6 +86,16 @@ export const TwitchUserScalarFieldEnum = {
 } as const
 
 export type TwitchUserScalarFieldEnum = (typeof TwitchUserScalarFieldEnum)[keyof typeof TwitchUserScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
 export const SortOrder = {

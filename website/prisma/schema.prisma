@@ -13,14 +13,27 @@ model TwitchUser {
   refreshToken String
   expiresAt    DateTime
   scope        String
+  isValid      Boolean  @default(true)
 
   // User info from Twitch
   login        String
   displayName  String
   profileImage String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Session   Session[]
 
   @@map("twitch_tokens")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user TwitchUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
 }

@@ -1,6 +1,6 @@
 import { Archivo_Black, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/app/_components/ui/sonner";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],

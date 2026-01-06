@@ -30,6 +30,7 @@ export type TwitchUserMinAggregateOutputType = {
   refreshToken: string | null
   expiresAt: Date | null
   scope: string | null
+  isValid: boolean | null
   login: string | null
   displayName: string | null
   profileImage: string | null
@@ -43,6 +44,7 @@ export type TwitchUserMaxAggregateOutputType = {
   refreshToken: string | null
   expiresAt: Date | null
   scope: string | null
+  isValid: boolean | null
   login: string | null
   displayName: string | null
   profileImage: string | null
@@ -56,6 +58,7 @@ export type TwitchUserCountAggregateOutputType = {
   refreshToken: number
   expiresAt: number
   scope: number
+  isValid: number
   login: number
   displayName: number
   profileImage: number
@@ -71,6 +74,7 @@ export type TwitchUserMinAggregateInputType = {
   refreshToken?: true
   expiresAt?: true
   scope?: true
+  isValid?: true
   login?: true
   displayName?: true
   profileImage?: true
@@ -84,6 +88,7 @@ export type TwitchUserMaxAggregateInputType = {
   refreshToken?: true
   expiresAt?: true
   scope?: true
+  isValid?: true
   login?: true
   displayName?: true
   profileImage?: true
@@ -97,6 +102,7 @@ export type TwitchUserCountAggregateInputType = {
   refreshToken?: true
   expiresAt?: true
   scope?: true
+  isValid?: true
   login?: true
   displayName?: true
   profileImage?: true
@@ -183,6 +189,7 @@ export type TwitchUserGroupByOutputType = {
   refreshToken: string
   expiresAt: Date
   scope: string
+  isValid: boolean
   login: string
   displayName: string
   profileImage: string | null
@@ -217,11 +224,13 @@ export type TwitchUserWhereInput = {
   refreshToken?: Prisma.StringFilter<"TwitchUser"> | string
   expiresAt?: Prisma.DateTimeFilter<"TwitchUser"> | Date | string
   scope?: Prisma.StringFilter<"TwitchUser"> | string
+  isValid?: Prisma.BoolFilter<"TwitchUser"> | boolean
   login?: Prisma.StringFilter<"TwitchUser"> | string
   displayName?: Prisma.StringFilter<"TwitchUser"> | string
   profileImage?: Prisma.StringNullableFilter<"TwitchUser"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TwitchUser"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TwitchUser"> | Date | string
+  Session?: Prisma.SessionListRelationFilter
 }
 
 export type TwitchUserOrderByWithRelationInput = {
@@ -230,11 +239,13 @@ export type TwitchUserOrderByWithRelationInput = {
   refreshToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   scope?: Prisma.SortOrder
+  isValid?: Prisma.SortOrder
   login?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
   profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  Session?: Prisma.SessionOrderByRelationAggregateInput
 }
 
 export type TwitchUserWhereUniqueInput = Prisma.AtLeast<{
@@ -246,11 +257,13 @@ export type TwitchUserWhereUniqueInput = Prisma.AtLeast<{
   refreshToken?: Prisma.StringFilter<"TwitchUser"> | string
   expiresAt?: Prisma.DateTimeFilter<"TwitchUser"> | Date | string
   scope?: Prisma.StringFilter<"TwitchUser"> | string
+  isValid?: Prisma.BoolFilter<"TwitchUser"> | boolean
   login?: Prisma.StringFilter<"TwitchUser"> | string
   displayName?: Prisma.StringFilter<"TwitchUser"> | string
   profileImage?: Prisma.StringNullableFilter<"TwitchUser"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TwitchUser"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TwitchUser"> | Date | string
+  Session?: Prisma.SessionListRelationFilter
 }, "id">
 
 export type TwitchUserOrderByWithAggregationInput = {
@@ -259,6 +272,7 @@ export type TwitchUserOrderByWithAggregationInput = {
   refreshToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   scope?: Prisma.SortOrder
+  isValid?: Prisma.SortOrder
   login?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
   profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -278,6 +292,7 @@ export type TwitchUserScalarWhereWithAggregatesInput = {
   refreshToken?: Prisma.StringWithAggregatesFilter<"TwitchUser"> | string
   expiresAt?: Prisma.DateTimeWithAggregatesFilter<"TwitchUser"> | Date | string
   scope?: Prisma.StringWithAggregatesFilter<"TwitchUser"> | string
+  isValid?: Prisma.BoolWithAggregatesFilter<"TwitchUser"> | boolean
   login?: Prisma.StringWithAggregatesFilter<"TwitchUser"> | string
   displayName?: Prisma.StringWithAggregatesFilter<"TwitchUser"> | string
   profileImage?: Prisma.StringNullableWithAggregatesFilter<"TwitchUser"> | string | null
@@ -291,11 +306,13 @@ export type TwitchUserCreateInput = {
   refreshToken: string
   expiresAt: Date | string
   scope: string
+  isValid?: boolean
   login: string
   displayName: string
   profileImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  Session?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type TwitchUserUncheckedCreateInput = {
@@ -304,11 +321,13 @@ export type TwitchUserUncheckedCreateInput = {
   refreshToken: string
   expiresAt: Date | string
   scope: string
+  isValid?: boolean
   login: string
   displayName: string
   profileImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  Session?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type TwitchUserUpdateInput = {
@@ -317,11 +336,13 @@ export type TwitchUserUpdateInput = {
   refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scope?: Prisma.StringFieldUpdateOperationsInput | string
+  isValid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   login?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Session?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type TwitchUserUncheckedUpdateInput = {
@@ -330,11 +351,13 @@ export type TwitchUserUncheckedUpdateInput = {
   refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scope?: Prisma.StringFieldUpdateOperationsInput | string
+  isValid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   login?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Session?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type TwitchUserCreateManyInput = {
@@ -343,6 +366,7 @@ export type TwitchUserCreateManyInput = {
   refreshToken: string
   expiresAt: Date | string
   scope: string
+  isValid?: boolean
   login: string
   displayName: string
   profileImage?: string | null
@@ -356,6 +380,7 @@ export type TwitchUserUpdateManyMutationInput = {
   refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scope?: Prisma.StringFieldUpdateOperationsInput | string
+  isValid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   login?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -369,6 +394,7 @@ export type TwitchUserUncheckedUpdateManyInput = {
   refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scope?: Prisma.StringFieldUpdateOperationsInput | string
+  isValid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   login?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -382,6 +408,7 @@ export type TwitchUserCountOrderByAggregateInput = {
   refreshToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   scope?: Prisma.SortOrder
+  isValid?: Prisma.SortOrder
   login?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
   profileImage?: Prisma.SortOrder
@@ -395,6 +422,7 @@ export type TwitchUserMaxOrderByAggregateInput = {
   refreshToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   scope?: Prisma.SortOrder
+  isValid?: Prisma.SortOrder
   login?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
   profileImage?: Prisma.SortOrder
@@ -408,11 +436,17 @@ export type TwitchUserMinOrderByAggregateInput = {
   refreshToken?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   scope?: Prisma.SortOrder
+  isValid?: Prisma.SortOrder
   login?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
   profileImage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type TwitchUserScalarRelationFilter = {
+  is?: Prisma.TwitchUserWhereInput
+  isNot?: Prisma.TwitchUserWhereInput
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -423,10 +457,129 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type TwitchUserCreateNestedOneWithoutSessionInput = {
+  create?: Prisma.XOR<Prisma.TwitchUserCreateWithoutSessionInput, Prisma.TwitchUserUncheckedCreateWithoutSessionInput>
+  connectOrCreate?: Prisma.TwitchUserCreateOrConnectWithoutSessionInput
+  connect?: Prisma.TwitchUserWhereUniqueInput
+}
+
+export type TwitchUserUpdateOneRequiredWithoutSessionNestedInput = {
+  create?: Prisma.XOR<Prisma.TwitchUserCreateWithoutSessionInput, Prisma.TwitchUserUncheckedCreateWithoutSessionInput>
+  connectOrCreate?: Prisma.TwitchUserCreateOrConnectWithoutSessionInput
+  upsert?: Prisma.TwitchUserUpsertWithoutSessionInput
+  connect?: Prisma.TwitchUserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TwitchUserUpdateToOneWithWhereWithoutSessionInput, Prisma.TwitchUserUpdateWithoutSessionInput>, Prisma.TwitchUserUncheckedUpdateWithoutSessionInput>
+}
+
+export type TwitchUserCreateWithoutSessionInput = {
+  id: string
+  accessToken: string
+  refreshToken: string
+  expiresAt: Date | string
+  scope: string
+  isValid?: boolean
+  login: string
+  displayName: string
+  profileImage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TwitchUserUncheckedCreateWithoutSessionInput = {
+  id: string
+  accessToken: string
+  refreshToken: string
+  expiresAt: Date | string
+  scope: string
+  isValid?: boolean
+  login: string
+  displayName: string
+  profileImage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TwitchUserCreateOrConnectWithoutSessionInput = {
+  where: Prisma.TwitchUserWhereUniqueInput
+  create: Prisma.XOR<Prisma.TwitchUserCreateWithoutSessionInput, Prisma.TwitchUserUncheckedCreateWithoutSessionInput>
+}
+
+export type TwitchUserUpsertWithoutSessionInput = {
+  update: Prisma.XOR<Prisma.TwitchUserUpdateWithoutSessionInput, Prisma.TwitchUserUncheckedUpdateWithoutSessionInput>
+  create: Prisma.XOR<Prisma.TwitchUserCreateWithoutSessionInput, Prisma.TwitchUserUncheckedCreateWithoutSessionInput>
+  where?: Prisma.TwitchUserWhereInput
+}
+
+export type TwitchUserUpdateToOneWithWhereWithoutSessionInput = {
+  where?: Prisma.TwitchUserWhereInput
+  data: Prisma.XOR<Prisma.TwitchUserUpdateWithoutSessionInput, Prisma.TwitchUserUncheckedUpdateWithoutSessionInput>
+}
+
+export type TwitchUserUpdateWithoutSessionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  scope?: Prisma.StringFieldUpdateOperationsInput | string
+  isValid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  login?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TwitchUserUncheckedUpdateWithoutSessionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  scope?: Prisma.StringFieldUpdateOperationsInput | string
+  isValid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  login?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type TwitchUserCountOutputType
+ */
+
+export type TwitchUserCountOutputType = {
+  Session: number
+}
+
+export type TwitchUserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Session?: boolean | TwitchUserCountOutputTypeCountSessionArgs
+}
+
+/**
+ * TwitchUserCountOutputType without action
+ */
+export type TwitchUserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TwitchUserCountOutputType
+   */
+  select?: Prisma.TwitchUserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TwitchUserCountOutputType without action
+ */
+export type TwitchUserCountOutputTypeCountSessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
+}
 
 
 export type TwitchUserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -435,11 +588,14 @@ export type TwitchUserSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   refreshToken?: boolean
   expiresAt?: boolean
   scope?: boolean
+  isValid?: boolean
   login?: boolean
   displayName?: boolean
   profileImage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  Session?: boolean | Prisma.TwitchUser$SessionArgs<ExtArgs>
+  _count?: boolean | Prisma.TwitchUserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["twitchUser"]>
 
 export type TwitchUserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -448,6 +604,7 @@ export type TwitchUserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   refreshToken?: boolean
   expiresAt?: boolean
   scope?: boolean
+  isValid?: boolean
   login?: boolean
   displayName?: boolean
   profileImage?: boolean
@@ -461,6 +618,7 @@ export type TwitchUserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   refreshToken?: boolean
   expiresAt?: boolean
   scope?: boolean
+  isValid?: boolean
   login?: boolean
   displayName?: boolean
   profileImage?: boolean
@@ -474,6 +632,7 @@ export type TwitchUserSelectScalar = {
   refreshToken?: boolean
   expiresAt?: boolean
   scope?: boolean
+  isValid?: boolean
   login?: boolean
   displayName?: boolean
   profileImage?: boolean
@@ -481,17 +640,26 @@ export type TwitchUserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TwitchUserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "accessToken" | "refreshToken" | "expiresAt" | "scope" | "login" | "displayName" | "profileImage" | "createdAt" | "updatedAt", ExtArgs["result"]["twitchUser"]>
+export type TwitchUserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "accessToken" | "refreshToken" | "expiresAt" | "scope" | "isValid" | "login" | "displayName" | "profileImage" | "createdAt" | "updatedAt", ExtArgs["result"]["twitchUser"]>
+export type TwitchUserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Session?: boolean | Prisma.TwitchUser$SessionArgs<ExtArgs>
+  _count?: boolean | Prisma.TwitchUserCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type TwitchUserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TwitchUserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $TwitchUserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TwitchUser"
-  objects: {}
+  objects: {
+    Session: Prisma.$SessionPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     accessToken: string
     refreshToken: string
     expiresAt: Date
     scope: string
+    isValid: boolean
     login: string
     displayName: string
     profileImage: string | null
@@ -891,6 +1059,7 @@ readonly fields: TwitchUserFieldRefs;
  */
 export interface Prisma__TwitchUserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  Session<T extends Prisma.TwitchUser$SessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TwitchUser$SessionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -925,6 +1094,7 @@ export interface TwitchUserFieldRefs {
   readonly refreshToken: Prisma.FieldRef<"TwitchUser", 'String'>
   readonly expiresAt: Prisma.FieldRef<"TwitchUser", 'DateTime'>
   readonly scope: Prisma.FieldRef<"TwitchUser", 'String'>
+  readonly isValid: Prisma.FieldRef<"TwitchUser", 'Boolean'>
   readonly login: Prisma.FieldRef<"TwitchUser", 'String'>
   readonly displayName: Prisma.FieldRef<"TwitchUser", 'String'>
   readonly profileImage: Prisma.FieldRef<"TwitchUser", 'String'>
@@ -947,6 +1117,10 @@ export type TwitchUserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
+  /**
    * Filter, which TwitchUser to fetch.
    */
   where: Prisma.TwitchUserWhereUniqueInput
@@ -965,6 +1139,10 @@ export type TwitchUserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
+  /**
    * Filter, which TwitchUser to fetch.
    */
   where: Prisma.TwitchUserWhereUniqueInput
@@ -982,6 +1160,10 @@ export type TwitchUserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the TwitchUser
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
   /**
    * Filter, which TwitchUser to fetch.
    */
@@ -1031,6 +1213,10 @@ export type TwitchUserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
+  /**
    * Filter, which TwitchUser to fetch.
    */
   where?: Prisma.TwitchUserWhereInput
@@ -1079,6 +1265,10 @@ export type TwitchUserFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
+  /**
    * Filter, which TwitchUsers to fetch.
    */
   where?: Prisma.TwitchUserWhereInput
@@ -1121,6 +1311,10 @@ export type TwitchUserCreateArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the TwitchUser
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
   /**
    * The data needed to create a TwitchUser.
    */
@@ -1169,6 +1363,10 @@ export type TwitchUserUpdateArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the TwitchUser
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
   /**
    * The data needed to update a TwitchUser.
    */
@@ -1236,6 +1434,10 @@ export type TwitchUserUpsertArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
+  /**
    * The filter to search for the TwitchUser to update in case it exists.
    */
   where: Prisma.TwitchUserWhereUniqueInput
@@ -1262,6 +1464,10 @@ export type TwitchUserDeleteArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
+  /**
    * Filter which TwitchUser to delete.
    */
   where: Prisma.TwitchUserWhereUniqueInput
@@ -1282,6 +1488,30 @@ export type TwitchUserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
+ * TwitchUser.Session
+ */
+export type TwitchUser$SessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
  * TwitchUser without action
  */
 export type TwitchUserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1293,4 +1523,8 @@ export type TwitchUserDefaultArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the TwitchUser
    */
   omit?: Prisma.TwitchUserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TwitchUserInclude<ExtArgs> | null
 }

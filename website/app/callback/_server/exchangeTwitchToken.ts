@@ -1,7 +1,7 @@
 'use server'
 
 import {TwitchUserCreateInput} from "@/app/_generated/prisma/models/TwitchUser";
-import prisma from "@/lib/prisma";
+import prisma from "@/app/_lib/prisma";
 
 export async function exchangeTwitchToken(code: string): Promise< { user?: Pick<TwitchUserCreateInput, 'id' | 'login' | 'displayName' | 'profileImage'> }> {
   const tokenResponse = await getToken(code);

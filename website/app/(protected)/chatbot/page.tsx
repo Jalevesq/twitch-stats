@@ -88,7 +88,7 @@ export default function ChatBotPage() {
                 </div>
             </div>
 
-            <h1 className="text-3xl font-display mb-6">ChatBot</h1>
+            <h1 className="text-3xl font-display mb-6">StreamGPT</h1>
 
             {/* Messages Area */}
             <div className="flex-1 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[#0a0a0a]/50 p-4 mb-4 overflow-y-auto">

@@ -1,5 +1,6 @@
 services:
   website:
+    image: jacob987/twitch-stats:latest
     container_name: website
     build:
       context: ../website

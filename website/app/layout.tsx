@@ -41,7 +41,6 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <Header user={session?.user} />
           {children}
-          <Footer />
         </SessionProvider>
       </body>
     </html>

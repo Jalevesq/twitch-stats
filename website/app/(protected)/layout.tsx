@@ -1,9 +1,9 @@
 "use client";
 
-import {ReactNode, useEffect, useState} from "react";
-import { useSession } from "@/app/_context/session-context";
-import {usePathname, useRouter } from "next/navigation";
-import { toast } from "sonner";
+import {ReactNode, useEffect} from "react";
+import {useSession} from "@/app/_context/session-context";
+import {usePathname, useRouter} from "next/navigation";
+import {toast} from "sonner";
 import Link from "next/link";
 
 const sidebarItems = [
@@ -13,13 +13,8 @@ const sidebarItems = [
         icon: '📊',
     },
     {
-        name: 'Activity Feed',
-        href: '/dashboard/activity',
-        icon: '📡',
-    },
-    {
         name: 'ChatBot',
-        href: '/dashboard/chatbot',
+        href: '/chatbot',
         icon: '🤖',
     },
 ]

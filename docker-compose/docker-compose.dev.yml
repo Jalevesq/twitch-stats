@@ -28,6 +28,8 @@ services:
       - ../website:/app  # ← Mount code for hot reload
       - /app/node_modules  # ← Prevent overwriting node_modules
       - /app/.next  # ← Prevent overwriting .next
+    env_file:
+      - ../website/.env
     depends_on:
       database:
         condition: service_healthy

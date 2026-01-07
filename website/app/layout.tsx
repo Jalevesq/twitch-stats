@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 import { getSession } from "@/app/_lib/session";
 import { Toaster } from "sonner";
 import Footer from "@/app/_components/Footer";
+import {Metadata} from "next";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -18,6 +19,12 @@ const archivoBlack = Archivo_Black({
   weight: ["400"],
   variable: "--font-archivo-black",
 });
+
+export const metadata: Metadata = {
+    title: 'StreamHub',
+    description: 'Stream smarter with real-time analytics',
+};
+
 
 export default async function RootLayout({
   children,

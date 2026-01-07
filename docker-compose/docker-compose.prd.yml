@@ -14,13 +14,6 @@ services:
       - NODE_ENV=production
     env_file:
       - ../website/.env
-# TODO - fix healthcheck
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://localhost:3000" ]
-#      interval: 15s
-#      timeout: 10s
-#      retries: 3
-#      start_period: 10s
   nginx:
     container_name: nginx
     image: nginx:alpine
@@ -35,6 +28,11 @@ services:
     restart: unless-stopped
     networks:
       - streamhub-network
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
 networks:
   streamhub-network:
     driver: bridge

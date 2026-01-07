@@ -7,7 +7,7 @@ import { format, eachDayOfInterval, eachWeekOfInterval, eachMonthOfInterval, sub
 
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 import {ChartConfig, ChartContainer} from "@/app/_components/ui/chart"
-import {Period} from "@/app/(protected)/dashboard/page";
+import {Period} from "@/app/(protected)/dashboard/_components/PeriodSelector";
 
 
 type ChartType = 'followers' | 'subscribers'
@@ -29,7 +29,7 @@ const generateData = (
 ): ChartDataPoint[] => {
     let total = chartType === 'followers' ? 35000 : 1100
 
-    if (period === 'daily') {
+    if (period === 'day') {
         const days = eachDayOfInterval({ start: startDate, end: endDate })
         return days.map((day) => {
             const change = chartType === 'followers'
@@ -45,7 +45,7 @@ const generateData = (
                 change,
             }
         })
-    } else if (period === 'weekly') {
+    } else if (period === 'week') {
         const weeks = eachWeekOfInterval({ start: startDate, end: endDate }, { weekStartsOn: 1 })
         return weeks.map((weekStart) => {
             const change = chartType === 'followers'
@@ -92,14 +92,14 @@ const chartConfig = {
 } satisfies ChartConfig
 
 const periods: { label: string; value: Period }[] = [
-    { label: 'Daily', value: 'daily' },
-    { label: 'Weekly', value: 'weekly' },
-    { label: 'Monthly', value: 'monthly' },
+    { label: 'Daily', value: 'day' },
+    { label: 'Weekly', value: 'week' },
+    { label: 'Monthly', value: 'month' },
 ]
 
 export function FollowersChart() {
     const [chartType] = useState<ChartType>('followers')
-    const [period] = useState<Period>('daily')
+    const [period] = useState<Period>('day')
     const [startDate] = useState<Date | null>(subDays(new Date(), 7))
     const [endDate] = useState<Date | null>(new Date())
 

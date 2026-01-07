@@ -15,7 +15,7 @@ model TwitchUser {
   scope        String
   isValid      Boolean  @default(true)
 
-  // User info from Twitch
+  // Session info from Twitch
   login        String
   displayName  String
   profileImage String?

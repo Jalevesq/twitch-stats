@@ -1,5 +1,7 @@
-import TwitchAuthSection from "@/app/_components/TwitchAuthSection";
+"use client";
+
 import FeatureSection from "@/app/_components/FeatureSection";
+import TwitchAuthSection from "@/app/_components/TwitchAuthSection";
 
 export default function Home() {
   return (

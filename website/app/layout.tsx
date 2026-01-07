@@ -1,6 +1,11 @@
 import { Archivo_Black, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/app/_components/ui/sonner";
+import { SessionProvider } from "@/app/_context/session-context";
+import { Header } from "@/app/_components/Header";
+import { ReactNode } from "react";
+import { getSession } from "@/app/_lib/session";
+import { Toaster } from "sonner";
+import Footer from "@/app/_components/Footer";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -14,26 +19,23 @@ const archivoBlack = Archivo_Black({
   variable: "--font-archivo-black",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
+  const session = await getSession();
   return (
     <html lang="en">
       <body
         className={`${dmSans.variable} ${archivoBlack.variable} font-sans bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#1a0a2e] text-white min-h-screen flex flex-col overflow-x-hidden`}
       >
-        <header className="relative px-12 py-8 border-b border-[rgba(255,255,255,0.08)] backdrop-blur-xl z-10">
-          <div className="font-display text-2xl tracking-tight flex items-center gap-2 animate-fadeInDown">
-            <div className="w-8 h-8 bg-gradient-to-br from-[#7c3aed] via-[#9146ff] to-[#ec4899] rounded-lg flex items-center justify-center text-xl shadow-lg shadow-purple-500/20">
-              ⚡
-            </div>
-            <span>StreamHub</span>
-          </div>
-        </header>
         <Toaster richColors />
-        {children}
+        <SessionProvider session={session}>
+          <Header user={session?.user} />
+          {children}
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );

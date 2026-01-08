@@ -1,2 +1,3 @@
-asyncpg==0.31.0
 twitchAPI==4.5.0
+psycopg[binary]==3.3.2
+psycopg-pool==3.3.0

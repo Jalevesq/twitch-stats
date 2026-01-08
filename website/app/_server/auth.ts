@@ -22,7 +22,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user }) {
-      await prisma.user.update({
+      await prisma.user.updateMany({
         where: { id: user.id },
         data: { isValid: true },
       });

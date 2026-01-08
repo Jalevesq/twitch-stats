@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../app/_generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id            String    @id @default(cuid(2))\n  name          String?\n  email         String?   @unique\n  emailVerified DateTime?\n  image         String?\n\n  isValid Boolean @default(true)\n\n  accounts Account[]\n  sessions Session[]\n}\n\nmodel Account {\n  id                String  @id @default(cuid(2))\n  userId            String\n  type              String\n  provider          String\n  providerAccountId String\n  refresh_token     String?\n  access_token      String?\n  expires_at        Int?\n  token_type        String?\n  scope             String?\n  id_token          String?\n  session_state     String?\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../app/_generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id            String    @id @default(uuid(7))\n  name          String?\n  email         String?   @unique\n  emailVerified DateTime?\n  image         String?\n\n  isValid Boolean @default(true)\n\n  accounts Account[]\n  sessions Session[]\n}\n\nmodel Account {\n  id                String  @id @default(uuid(7))\n  userId            String\n  type              String\n  provider          String\n  providerAccountId String\n  refresh_token     String?\n  access_token      String?\n  expires_at        Int?\n  token_type        String?\n  scope             String?\n  id_token          String?\n  session_state     String?\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Session {\n  id           String   @id @default(uuid(7))\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel TwitchFollow {\n  id           String   @id @default(uuid(7))\n  channelId    String\n  followerId   String\n  followerName String\n  followedAt   DateTime\n  createdAt    DateTime @default(now())\n\n  @@index([channelId])\n  @@index([followedAt])\n  @@map(\"twitch_follows\")\n}\n\nmodel TwitchSubscription {\n  id             String   @id @default(uuid(7))\n  channelId      String\n  subscriberId   String\n  subscriberName String\n  isGift         Boolean  @default(false)\n  gifterId       String?\n  gifterName     String?\n  isAnonymous    Boolean  @default(false)\n  tier           String\n  createdAt      DateTime @default(now())\n\n  @@index([channelId])\n  @@index([createdAt])\n  @@map(\"twitch_subscriptions\")\n}\n\nmodel TwitchCheer {\n  id          String   @id @default(uuid(7))\n  channelId   String\n  cheererId   String?\n  cheererName String?\n  bits        Int\n  message     String?\n  createdAt   DateTime @default(now())\n\n  @@index([channelId])\n  @@index([createdAt])\n  @@map(\"twitch_cheers\")\n}\n\nmodel TwitchStream {\n  id         String    @id @default(uuid(7))\n  channelId  String\n  type       String // \"online\" or \"offline\"\n  streamType String? // \"live\", \"playlist\", etc. (only for online)\n  startedAt  DateTime?\n  createdAt  DateTime  @default(now())\n\n  @@index([channelId])\n  @@index([createdAt])\n  @@map(\"twitch_streams\")\n}\n\nmodel TwitchRaid {\n  id         String   @id @default(uuid(7))\n  channelId  String // Who received the raid\n  raiderId   String\n  raiderName String\n  viewers    Int\n  createdAt  DateTime @default(now())\n\n  @@index([channelId])\n  @@index([createdAt])\n  @@map(\"twitch_raids\")\n}\n\nmodel TwitchRedemption {\n  id           String   @id @default(uuid(7))\n  channelId    String\n  redeemerId   String\n  redeemerName String\n  rewardId     String\n  rewardTitle  String\n  rewardCost   Int\n  userInput    String?\n  redeemedAt   DateTime\n  createdAt    DateTime @default(now())\n\n  @@index([channelId])\n  @@index([createdAt])\n  @@map(\"twitch_redemptions\")\n}\n\nmodel TwitchChannelUpdate {\n  id           String   @id @default(uuid(7))\n  channelId    String\n  title        String\n  categoryId   String\n  categoryName String\n  language     String\n  createdAt    DateTime @default(now())\n\n  @@index([channelId])\n  @@index([createdAt])\n  @@map(\"twitch_channel_updates\")\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isValid\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isValid\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"TwitchFollow\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"channelId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"followerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"followerName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"followedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"twitch_follows\"},\"TwitchSubscription\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"channelId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subscriberId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subscriberName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isGift\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"gifterId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gifterName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isAnonymous\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"tier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"twitch_subscriptions\"},\"TwitchCheer\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"channelId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cheererId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cheererName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bits\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"twitch_cheers\"},\"TwitchStream\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"channelId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"streamType\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"startedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"twitch_streams\"},\"TwitchRaid\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"channelId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"raiderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"raiderName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"viewers\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"twitch_raids\"},\"TwitchRedemption\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"channelId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"redeemerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"redeemerName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rewardId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rewardTitle\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rewardCost\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userInput\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"redeemedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"twitch_redemptions\"},\"TwitchChannelUpdate\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"channelId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"categoryName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"language\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"twitch_channel_updates\"}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -203,6 +203,76 @@ export interface PrismaClient<
     * ```
     */
   get session(): Prisma.SessionDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.twitchFollow`: Exposes CRUD operations for the **TwitchFollow** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TwitchFollows
+    * const twitchFollows = await prisma.twitchFollow.findMany()
+    * ```
+    */
+  get twitchFollow(): Prisma.TwitchFollowDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.twitchSubscription`: Exposes CRUD operations for the **TwitchSubscription** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TwitchSubscriptions
+    * const twitchSubscriptions = await prisma.twitchSubscription.findMany()
+    * ```
+    */
+  get twitchSubscription(): Prisma.TwitchSubscriptionDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.twitchCheer`: Exposes CRUD operations for the **TwitchCheer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TwitchCheers
+    * const twitchCheers = await prisma.twitchCheer.findMany()
+    * ```
+    */
+  get twitchCheer(): Prisma.TwitchCheerDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.twitchStream`: Exposes CRUD operations for the **TwitchStream** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TwitchStreams
+    * const twitchStreams = await prisma.twitchStream.findMany()
+    * ```
+    */
+  get twitchStream(): Prisma.TwitchStreamDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.twitchRaid`: Exposes CRUD operations for the **TwitchRaid** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TwitchRaids
+    * const twitchRaids = await prisma.twitchRaid.findMany()
+    * ```
+    */
+  get twitchRaid(): Prisma.TwitchRaidDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.twitchRedemption`: Exposes CRUD operations for the **TwitchRedemption** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TwitchRedemptions
+    * const twitchRedemptions = await prisma.twitchRedemption.findMany()
+    * ```
+    */
+  get twitchRedemption(): Prisma.TwitchRedemptionDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.twitchChannelUpdate`: Exposes CRUD operations for the **TwitchChannelUpdate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TwitchChannelUpdates
+    * const twitchChannelUpdates = await prisma.twitchChannelUpdate.findMany()
+    * ```
+    */
+  get twitchChannelUpdate(): Prisma.TwitchChannelUpdateDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

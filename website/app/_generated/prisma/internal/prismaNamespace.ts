@@ -386,7 +386,14 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Account: 'Account',
-  Session: 'Session'
+  Session: 'Session',
+  TwitchFollow: 'TwitchFollow',
+  TwitchSubscription: 'TwitchSubscription',
+  TwitchCheer: 'TwitchCheer',
+  TwitchStream: 'TwitchStream',
+  TwitchRaid: 'TwitchRaid',
+  TwitchRedemption: 'TwitchRedemption',
+  TwitchChannelUpdate: 'TwitchChannelUpdate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session"
+    modelProps: "user" | "account" | "session" | "twitchFollow" | "twitchSubscription" | "twitchCheer" | "twitchStream" | "twitchRaid" | "twitchRedemption" | "twitchChannelUpdate"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +635,524 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TwitchFollow: {
+      payload: Prisma.$TwitchFollowPayload<ExtArgs>
+      fields: Prisma.TwitchFollowFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TwitchFollowFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TwitchFollowFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload>
+        }
+        findFirst: {
+          args: Prisma.TwitchFollowFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TwitchFollowFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload>
+        }
+        findMany: {
+          args: Prisma.TwitchFollowFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload>[]
+        }
+        create: {
+          args: Prisma.TwitchFollowCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload>
+        }
+        createMany: {
+          args: Prisma.TwitchFollowCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TwitchFollowCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload>[]
+        }
+        delete: {
+          args: Prisma.TwitchFollowDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload>
+        }
+        update: {
+          args: Prisma.TwitchFollowUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload>
+        }
+        deleteMany: {
+          args: Prisma.TwitchFollowDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TwitchFollowUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TwitchFollowUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload>[]
+        }
+        upsert: {
+          args: Prisma.TwitchFollowUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchFollowPayload>
+        }
+        aggregate: {
+          args: Prisma.TwitchFollowAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTwitchFollow>
+        }
+        groupBy: {
+          args: Prisma.TwitchFollowGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchFollowGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TwitchFollowCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchFollowCountAggregateOutputType> | number
+        }
+      }
+    }
+    TwitchSubscription: {
+      payload: Prisma.$TwitchSubscriptionPayload<ExtArgs>
+      fields: Prisma.TwitchSubscriptionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TwitchSubscriptionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TwitchSubscriptionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload>
+        }
+        findFirst: {
+          args: Prisma.TwitchSubscriptionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TwitchSubscriptionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload>
+        }
+        findMany: {
+          args: Prisma.TwitchSubscriptionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload>[]
+        }
+        create: {
+          args: Prisma.TwitchSubscriptionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload>
+        }
+        createMany: {
+          args: Prisma.TwitchSubscriptionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TwitchSubscriptionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload>[]
+        }
+        delete: {
+          args: Prisma.TwitchSubscriptionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload>
+        }
+        update: {
+          args: Prisma.TwitchSubscriptionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload>
+        }
+        deleteMany: {
+          args: Prisma.TwitchSubscriptionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TwitchSubscriptionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TwitchSubscriptionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload>[]
+        }
+        upsert: {
+          args: Prisma.TwitchSubscriptionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchSubscriptionPayload>
+        }
+        aggregate: {
+          args: Prisma.TwitchSubscriptionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTwitchSubscription>
+        }
+        groupBy: {
+          args: Prisma.TwitchSubscriptionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchSubscriptionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TwitchSubscriptionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchSubscriptionCountAggregateOutputType> | number
+        }
+      }
+    }
+    TwitchCheer: {
+      payload: Prisma.$TwitchCheerPayload<ExtArgs>
+      fields: Prisma.TwitchCheerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TwitchCheerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TwitchCheerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload>
+        }
+        findFirst: {
+          args: Prisma.TwitchCheerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TwitchCheerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload>
+        }
+        findMany: {
+          args: Prisma.TwitchCheerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload>[]
+        }
+        create: {
+          args: Prisma.TwitchCheerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload>
+        }
+        createMany: {
+          args: Prisma.TwitchCheerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TwitchCheerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload>[]
+        }
+        delete: {
+          args: Prisma.TwitchCheerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload>
+        }
+        update: {
+          args: Prisma.TwitchCheerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload>
+        }
+        deleteMany: {
+          args: Prisma.TwitchCheerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TwitchCheerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TwitchCheerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload>[]
+        }
+        upsert: {
+          args: Prisma.TwitchCheerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchCheerPayload>
+        }
+        aggregate: {
+          args: Prisma.TwitchCheerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTwitchCheer>
+        }
+        groupBy: {
+          args: Prisma.TwitchCheerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchCheerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TwitchCheerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchCheerCountAggregateOutputType> | number
+        }
+      }
+    }
+    TwitchStream: {
+      payload: Prisma.$TwitchStreamPayload<ExtArgs>
+      fields: Prisma.TwitchStreamFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TwitchStreamFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TwitchStreamFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload>
+        }
+        findFirst: {
+          args: Prisma.TwitchStreamFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TwitchStreamFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload>
+        }
+        findMany: {
+          args: Prisma.TwitchStreamFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload>[]
+        }
+        create: {
+          args: Prisma.TwitchStreamCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload>
+        }
+        createMany: {
+          args: Prisma.TwitchStreamCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TwitchStreamCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload>[]
+        }
+        delete: {
+          args: Prisma.TwitchStreamDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload>
+        }
+        update: {
+          args: Prisma.TwitchStreamUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload>
+        }
+        deleteMany: {
+          args: Prisma.TwitchStreamDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TwitchStreamUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TwitchStreamUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload>[]
+        }
+        upsert: {
+          args: Prisma.TwitchStreamUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchStreamPayload>
+        }
+        aggregate: {
+          args: Prisma.TwitchStreamAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTwitchStream>
+        }
+        groupBy: {
+          args: Prisma.TwitchStreamGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchStreamGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TwitchStreamCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchStreamCountAggregateOutputType> | number
+        }
+      }
+    }
+    TwitchRaid: {
+      payload: Prisma.$TwitchRaidPayload<ExtArgs>
+      fields: Prisma.TwitchRaidFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TwitchRaidFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TwitchRaidFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload>
+        }
+        findFirst: {
+          args: Prisma.TwitchRaidFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TwitchRaidFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload>
+        }
+        findMany: {
+          args: Prisma.TwitchRaidFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload>[]
+        }
+        create: {
+          args: Prisma.TwitchRaidCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload>
+        }
+        createMany: {
+          args: Prisma.TwitchRaidCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TwitchRaidCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload>[]
+        }
+        delete: {
+          args: Prisma.TwitchRaidDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload>
+        }
+        update: {
+          args: Prisma.TwitchRaidUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload>
+        }
+        deleteMany: {
+          args: Prisma.TwitchRaidDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TwitchRaidUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TwitchRaidUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload>[]
+        }
+        upsert: {
+          args: Prisma.TwitchRaidUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRaidPayload>
+        }
+        aggregate: {
+          args: Prisma.TwitchRaidAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTwitchRaid>
+        }
+        groupBy: {
+          args: Prisma.TwitchRaidGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchRaidGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TwitchRaidCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchRaidCountAggregateOutputType> | number
+        }
+      }
+    }
+    TwitchRedemption: {
+      payload: Prisma.$TwitchRedemptionPayload<ExtArgs>
+      fields: Prisma.TwitchRedemptionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TwitchRedemptionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TwitchRedemptionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload>
+        }
+        findFirst: {
+          args: Prisma.TwitchRedemptionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TwitchRedemptionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload>
+        }
+        findMany: {
+          args: Prisma.TwitchRedemptionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload>[]
+        }
+        create: {
+          args: Prisma.TwitchRedemptionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload>
+        }
+        createMany: {
+          args: Prisma.TwitchRedemptionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TwitchRedemptionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload>[]
+        }
+        delete: {
+          args: Prisma.TwitchRedemptionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload>
+        }
+        update: {
+          args: Prisma.TwitchRedemptionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload>
+        }
+        deleteMany: {
+          args: Prisma.TwitchRedemptionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TwitchRedemptionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TwitchRedemptionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload>[]
+        }
+        upsert: {
+          args: Prisma.TwitchRedemptionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchRedemptionPayload>
+        }
+        aggregate: {
+          args: Prisma.TwitchRedemptionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTwitchRedemption>
+        }
+        groupBy: {
+          args: Prisma.TwitchRedemptionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchRedemptionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TwitchRedemptionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchRedemptionCountAggregateOutputType> | number
+        }
+      }
+    }
+    TwitchChannelUpdate: {
+      payload: Prisma.$TwitchChannelUpdatePayload<ExtArgs>
+      fields: Prisma.TwitchChannelUpdateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TwitchChannelUpdateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TwitchChannelUpdateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload>
+        }
+        findFirst: {
+          args: Prisma.TwitchChannelUpdateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TwitchChannelUpdateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload>
+        }
+        findMany: {
+          args: Prisma.TwitchChannelUpdateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload>[]
+        }
+        create: {
+          args: Prisma.TwitchChannelUpdateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload>
+        }
+        createMany: {
+          args: Prisma.TwitchChannelUpdateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TwitchChannelUpdateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload>[]
+        }
+        delete: {
+          args: Prisma.TwitchChannelUpdateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload>
+        }
+        update: {
+          args: Prisma.TwitchChannelUpdateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload>
+        }
+        deleteMany: {
+          args: Prisma.TwitchChannelUpdateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TwitchChannelUpdateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TwitchChannelUpdateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload>[]
+        }
+        upsert: {
+          args: Prisma.TwitchChannelUpdateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TwitchChannelUpdatePayload>
+        }
+        aggregate: {
+          args: Prisma.TwitchChannelUpdateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTwitchChannelUpdate>
+        }
+        groupBy: {
+          args: Prisma.TwitchChannelUpdateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchChannelUpdateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TwitchChannelUpdateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TwitchChannelUpdateCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -705,6 +1230,100 @@ export const SessionScalarFieldEnum = {
 } as const
 
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const TwitchFollowScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  followerId: 'followerId',
+  followerName: 'followerName',
+  followedAt: 'followedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchFollowScalarFieldEnum = (typeof TwitchFollowScalarFieldEnum)[keyof typeof TwitchFollowScalarFieldEnum]
+
+
+export const TwitchSubscriptionScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  subscriberId: 'subscriberId',
+  subscriberName: 'subscriberName',
+  isGift: 'isGift',
+  gifterId: 'gifterId',
+  gifterName: 'gifterName',
+  isAnonymous: 'isAnonymous',
+  tier: 'tier',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchSubscriptionScalarFieldEnum = (typeof TwitchSubscriptionScalarFieldEnum)[keyof typeof TwitchSubscriptionScalarFieldEnum]
+
+
+export const TwitchCheerScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  cheererId: 'cheererId',
+  cheererName: 'cheererName',
+  bits: 'bits',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchCheerScalarFieldEnum = (typeof TwitchCheerScalarFieldEnum)[keyof typeof TwitchCheerScalarFieldEnum]
+
+
+export const TwitchStreamScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  type: 'type',
+  streamType: 'streamType',
+  startedAt: 'startedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchStreamScalarFieldEnum = (typeof TwitchStreamScalarFieldEnum)[keyof typeof TwitchStreamScalarFieldEnum]
+
+
+export const TwitchRaidScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  raiderId: 'raiderId',
+  raiderName: 'raiderName',
+  viewers: 'viewers',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchRaidScalarFieldEnum = (typeof TwitchRaidScalarFieldEnum)[keyof typeof TwitchRaidScalarFieldEnum]
+
+
+export const TwitchRedemptionScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  redeemerId: 'redeemerId',
+  redeemerName: 'redeemerName',
+  rewardId: 'rewardId',
+  rewardTitle: 'rewardTitle',
+  rewardCost: 'rewardCost',
+  userInput: 'userInput',
+  redeemedAt: 'redeemedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchRedemptionScalarFieldEnum = (typeof TwitchRedemptionScalarFieldEnum)[keyof typeof TwitchRedemptionScalarFieldEnum]
+
+
+export const TwitchChannelUpdateScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  title: 'title',
+  categoryId: 'categoryId',
+  categoryName: 'categoryName',
+  language: 'language',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchChannelUpdateScalarFieldEnum = (typeof TwitchChannelUpdateScalarFieldEnum)[keyof typeof TwitchChannelUpdateScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -897,6 +1516,13 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   account?: Prisma.AccountOmit
   session?: Prisma.SessionOmit
+  twitchFollow?: Prisma.TwitchFollowOmit
+  twitchSubscription?: Prisma.TwitchSubscriptionOmit
+  twitchCheer?: Prisma.TwitchCheerOmit
+  twitchStream?: Prisma.TwitchStreamOmit
+  twitchRaid?: Prisma.TwitchRaidOmit
+  twitchRedemption?: Prisma.TwitchRedemptionOmit
+  twitchChannelUpdate?: Prisma.TwitchChannelUpdateOmit
 }
 
 /* Types for Logging */

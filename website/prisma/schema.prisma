@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid(2))
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name          String?
   email         String?   @unique
   emailVerified DateTime?
@@ -21,8 +21,8 @@ model User {
 }
 
 model Account {
-  id                String  @id @default(cuid(2))
-  userId            String
+  id                String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId            String  @db.Uuid
   type              String
   provider          String
   providerAccountId String
@@ -40,10 +40,111 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   sessionToken String   @unique
-  userId       String
+  userId       String   @db.Uuid
   expires      DateTime
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TwitchFollow {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  channelId    String
+  followerId   String
+  followerName String
+  followedAt   DateTime
+  createdAt    DateTime @default(now())
+
+  @@index([channelId])
+  @@index([followedAt])
+  @@map("twitch_follows")
+}
+
+model TwitchSubscription {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  channelId      String
+  subscriberId   String
+  subscriberName String
+  isGift         Boolean  @default(false)
+  gifterId       String?
+  gifterName     String?
+  isAnonymous    Boolean  @default(false)
+  tier           String
+  createdAt      DateTime @default(now())
+
+  @@index([channelId])
+  @@index([createdAt])
+  @@map("twitch_subscriptions")
+}
+
+model TwitchCheer {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  channelId   String
+  cheererId   String?
+  cheererName String?
+  bits        Int
+  message     String?
+  createdAt   DateTime @default(now())
+
+  @@index([channelId])
+  @@index([createdAt])
+  @@map("twitch_cheers")
+}
+
+model TwitchStream {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  channelId  String
+  type       String // "online" or "offline"
+  streamType String? // "live", "playlist", etc. (only for online)
+  startedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([channelId])
+  @@index([createdAt])
+  @@map("twitch_streams")
+}
+
+model TwitchRaid {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  channelId  String // Who received the raid
+  raiderId   String
+  raiderName String
+  viewers    Int
+  createdAt  DateTime @default(now())
+
+  @@index([channelId])
+  @@index([createdAt])
+  @@map("twitch_raids")
+}
+
+model TwitchRedemption {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  channelId    String
+  redeemerId   String
+  redeemerName String
+  rewardId     String
+  rewardTitle  String
+  rewardCost   Int
+  userInput    String?
+  redeemedAt   DateTime
+  createdAt    DateTime @default(now())
+
+  @@index([channelId])
+  @@index([createdAt])
+  @@map("twitch_redemptions")
+}
+
+model TwitchChannelUpdate {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  channelId    String
+  title        String
+  categoryId   String
+  categoryName String
+  language     String
+  createdAt    DateTime @default(now())
+
+  @@index([channelId])
+  @@index([createdAt])
+  @@map("twitch_channel_updates")
 }

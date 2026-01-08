@@ -1,16 +1,19 @@
 import asyncio
 
 from config import CLIENT_ID, CLIENT_SECRET, DATABASE_URL
-from storage import TokenStorage
+from storage import Database, TokenStorage, EventStorage
 from bot import MultiAccountBot
 
 
 async def main():
-    token_storage = TokenStorage()
-    await token_storage.connect(DATABASE_URL)
+    db = Database()
+    await db.connect(DATABASE_URL)
+
+    token_storage = TokenStorage(db)
+    event_storage = EventStorage(db)
 
     try:
-        bot = MultiAccountBot(CLIENT_ID, CLIENT_SECRET, token_storage)
+        bot = MultiAccountBot(CLIENT_ID, CLIENT_SECRET, token_storage, event_storage)
 
         await bot.load_accounts_from_db()
 
@@ -27,7 +30,7 @@ async def main():
         print("\nShutting down...")
     finally:
         await bot.stop()
-        await token_storage.close()
+        await db.close()
 
 
 if __name__ == "__main__":

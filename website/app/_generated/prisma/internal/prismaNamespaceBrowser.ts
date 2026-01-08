@@ -53,7 +53,14 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Account: 'Account',
-  Session: 'Session'
+  Session: 'Session',
+  TwitchFollow: 'TwitchFollow',
+  TwitchSubscription: 'TwitchSubscription',
+  TwitchCheer: 'TwitchCheer',
+  TwitchStream: 'TwitchStream',
+  TwitchRaid: 'TwitchRaid',
+  TwitchRedemption: 'TwitchRedemption',
+  TwitchChannelUpdate: 'TwitchChannelUpdate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -110,6 +117,100 @@ export const SessionScalarFieldEnum = {
 } as const
 
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const TwitchFollowScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  followerId: 'followerId',
+  followerName: 'followerName',
+  followedAt: 'followedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchFollowScalarFieldEnum = (typeof TwitchFollowScalarFieldEnum)[keyof typeof TwitchFollowScalarFieldEnum]
+
+
+export const TwitchSubscriptionScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  subscriberId: 'subscriberId',
+  subscriberName: 'subscriberName',
+  isGift: 'isGift',
+  gifterId: 'gifterId',
+  gifterName: 'gifterName',
+  isAnonymous: 'isAnonymous',
+  tier: 'tier',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchSubscriptionScalarFieldEnum = (typeof TwitchSubscriptionScalarFieldEnum)[keyof typeof TwitchSubscriptionScalarFieldEnum]
+
+
+export const TwitchCheerScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  cheererId: 'cheererId',
+  cheererName: 'cheererName',
+  bits: 'bits',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchCheerScalarFieldEnum = (typeof TwitchCheerScalarFieldEnum)[keyof typeof TwitchCheerScalarFieldEnum]
+
+
+export const TwitchStreamScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  type: 'type',
+  streamType: 'streamType',
+  startedAt: 'startedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchStreamScalarFieldEnum = (typeof TwitchStreamScalarFieldEnum)[keyof typeof TwitchStreamScalarFieldEnum]
+
+
+export const TwitchRaidScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  raiderId: 'raiderId',
+  raiderName: 'raiderName',
+  viewers: 'viewers',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchRaidScalarFieldEnum = (typeof TwitchRaidScalarFieldEnum)[keyof typeof TwitchRaidScalarFieldEnum]
+
+
+export const TwitchRedemptionScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  redeemerId: 'redeemerId',
+  redeemerName: 'redeemerName',
+  rewardId: 'rewardId',
+  rewardTitle: 'rewardTitle',
+  rewardCost: 'rewardCost',
+  userInput: 'userInput',
+  redeemedAt: 'redeemedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchRedemptionScalarFieldEnum = (typeof TwitchRedemptionScalarFieldEnum)[keyof typeof TwitchRedemptionScalarFieldEnum]
+
+
+export const TwitchChannelUpdateScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  title: 'title',
+  categoryId: 'categoryId',
+  categoryName: 'categoryName',
+  language: 'language',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchChannelUpdateScalarFieldEnum = (typeof TwitchChannelUpdateScalarFieldEnum)[keyof typeof TwitchChannelUpdateScalarFieldEnum]
 
 
 export const SortOrder = {

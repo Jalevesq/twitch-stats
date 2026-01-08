@@ -32,3 +32,38 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Session = Prisma.SessionModel
+/**
+ * Model TwitchFollow
+ * 
+ */
+export type TwitchFollow = Prisma.TwitchFollowModel
+/**
+ * Model TwitchSubscription
+ * 
+ */
+export type TwitchSubscription = Prisma.TwitchSubscriptionModel
+/**
+ * Model TwitchCheer
+ * 
+ */
+export type TwitchCheer = Prisma.TwitchCheerModel
+/**
+ * Model TwitchStream
+ * 
+ */
+export type TwitchStream = Prisma.TwitchStreamModel
+/**
+ * Model TwitchRaid
+ * 
+ */
+export type TwitchRaid = Prisma.TwitchRaidModel
+/**
+ * Model TwitchRedemption
+ * 
+ */
+export type TwitchRedemption = Prisma.TwitchRedemptionModel
+/**
+ * Model TwitchChannelUpdate
+ * 
+ */
+export type TwitchChannelUpdate = Prisma.TwitchChannelUpdateModel

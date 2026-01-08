@@ -6,17 +6,18 @@ from twitchAPI.type import InvalidRefreshTokenException, UnauthorizedException
 
 from config import SCOPES
 from models import TwitchAccount
-from storage import TokenStorage
+from storage import TokenStorage, EventStorage
 from handlers import handle_event
 
 
 class MultiAccountBot:
     """Manages multiple Twitch accounts and their EventSub connections."""
 
-    def __init__(self, client_id: str, client_secret: str, token_storage: TokenStorage):
+    def __init__(self, client_id: str, client_secret: str, token_storage: TokenStorage, event_storage: EventStorage):
         self.client_id = client_id
         self.client_secret = client_secret
         self.token_storage = token_storage
+        self.event_storage = event_storage
         self.accounts: list[TwitchAccount] = []
 
     async def add_account(
@@ -32,9 +33,9 @@ class MultiAccountBot:
             twitch = await Twitch(self.client_id, self.client_secret)
 
             def make_token_callback(uid: str):
-                def callback(access_token: str, refresh_token: str):
+                def callback(new_access_token: str, new_refresh_token: str):
                     asyncio.create_task(
-                        self.token_storage.save_tokens(uid, access_token, refresh_token)
+                        self.token_storage.save_tokens(uid, new_access_token, new_refresh_token)
                     )
                 return callback
 
@@ -45,11 +46,7 @@ class MultiAccountBot:
             )
             twitch.user_auth_refresh_callback = make_token_callback(user_id)
 
-            async def on_revocation(data: dict):
-                print(f"[{display_name}] Subscription revoked: {data}")
-                await self.token_storage.mark_invalid(user_id)
-                self.accounts = [a for a in self.accounts if a.user_id != user_id]
-            eventsub = EventSubWebsocket(twitch, revocation_handler=on_revocation)
+            eventsub = EventSubWebsocket(twitch)
 
             account = TwitchAccount(
                 user_id=user_id,
@@ -76,10 +73,11 @@ class MultiAccountBot:
         es = account.eventsub
         user_id = account.user_id
         name = account.display_name
+        event_storage = self.event_storage
 
         def make_callback(event_type: str):
             async def callback(event):
-                await handle_event(account, event_type, event)
+                await handle_event(account, event_type, event, event_storage)
             return callback
 
         subscriptions = [
@@ -111,6 +109,10 @@ class MultiAccountBot:
             ("redemption", lambda: es.listen_channel_points_custom_reward_redemption_add(
                 broadcaster_user_id=user_id,
                 callback=make_callback("redemption"),
+            )),
+            ("channel_update", lambda: es.listen_channel_update(
+                broadcaster_user_id=user_id,
+                callback=make_callback("channel_update"),
             )),
         ]
 

@@ -12,6 +12,8 @@ services:
       - streamhub-network
     environment:
       - NODE_ENV=production
+      - AUTH_TRUST_HOST=true
+      - AUTH_URL=https://streamerhub.ca
     env_file:
       - ../website/.env
   nginx:

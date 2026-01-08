@@ -19,12 +19,12 @@ export function Header({ user, showDashboardLink = true }: HeaderProps) {
             <div className="flex items-center justify-between">
                 <Link
                     href="/"
-                    className="font-display text-xl tracking-tight flex items-center gap-2 animate-fadeInDown"
+                    className="font-display text-xl tracking-tight flex items-center gap-2.5 animate-fadeInDown"
                 >
-                    <div className="w-6 h-6 bg-gradient-to-br from-[#7c3aed] via-[#9146ff] to-[#ec4899] rounded-md flex items-center justify-center text-sm leading-none shadow-lg shadow-purple-500/20">
+                    <div className="w-7 h-7 bg-gradient-to-br from-[#8b5cf6] to-[#a855f7] rounded-lg flex items-center justify-center text-base shadow-md shadow-purple-500/25">
                         ⚡
                     </div>
-                    <span className="mt-[-0.11em]">StreamHub</span>
+                    <span className="mt-[-0.12em]">StreamHub</span>
                 </Link>
 
                 {user && (

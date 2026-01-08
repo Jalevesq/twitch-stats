@@ -9,7 +9,7 @@ type HeaderProps = {
 
 export function Header({ session, showDashboardLink = true }: HeaderProps) {
   return (
-    <header className="relative px-8 py-3 border-b border-[rgba(255,255,255,0.08)] backdrop-blur-xl z-10">
+    <header className="relative px-8 py-5 border-b border-[rgba(255,255,255,0.08)] backdrop-blur-xl z-10">
       <div className="flex items-center justify-between">
         <Link
           href="/"

@@ -45,7 +45,11 @@ class MultiAccountBot:
             )
             twitch.user_auth_refresh_callback = make_token_callback(user_id)
 
-            eventsub = EventSubWebsocket(twitch)
+            async def on_revocation(data: dict):
+                print(f"[{display_name}] Subscription revoked: {data}")
+                await self.token_storage.mark_invalid(user_id)
+                self.accounts = [a for a in self.accounts if a.user_id != user_id]
+            eventsub = EventSubWebsocket(twitch, revocation_handler=on_revocation)
 
             account = TwitchAccount(
                 user_id=user_id,

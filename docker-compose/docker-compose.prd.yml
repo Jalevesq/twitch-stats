@@ -34,6 +34,22 @@ services:
     volumes:
       - ../certbot/conf:/etc/letsencrypt
       - ../certbot/www:/var/www/certbot
+  twitch-bot:
+    container_name: twitch-bot
+    image: jacob987/twitch-stats-bot:latest
+    build:
+      context: ../twitch-bot
+      dockerfile: ../twitch-bot/docker/prd.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ../twitch-bot/.env
+    networks:
+      - streamhub-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 networks:
   streamhub-network:
     driver: bridge

@@ -13,4 +13,6 @@ docker compose -f docker-compose.prd.yml pull
 echo "🚀 Starting app..."
 docker compose -f docker-compose.prd.yml up -d
 
+docker compose -f docker-compose.prd.yml restart nginx
+
 echo "✅ Deployed!"

@@ -17,11 +17,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   pages: {
-      signIn: '/',
-      error: '/',
+    signIn: "/",
+    error: "/",
   },
   callbacks: {
+    async signIn({ user }) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { isValid: true },
+      });
+      return true;
+    },
     async session({ session, user }) {
+      if (!user.isValid) {
+        await prisma.session.deleteMany({ where: { userId: user.id } });
+        return null as any;
+      }
       session.user.isValid = user.isValid;
       return session;
     },

@@ -4,26 +4,25 @@ import FeatureSection from "@/app/_components/FeatureSection";
 import TwitchAuthSection from "@/app/_components/TwitchAuthSection";
 import Footer from "@/app/_components/Footer";
 import { useSearchParams } from "next/navigation";
-import {useEffect} from "react";
-import {toast} from "sonner";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function Home() {
   const searchParams = useSearchParams();
-  const error = searchParams.get('error');
+  const error = searchParams.get("error");
 
-
-    useEffect(() => {
-        if (error) {
-            if (error === 'OAuthCallbackError') {
-                toast.error('Login was cancelled');
-            } else if (error === 'access_denied') {
-                toast.error('You denied the access.');
-            } else {
-                toast.error('Login failed');
-            }
-            window.history.replaceState({}, '', '/');
-        }
-    }, [error]);
+  useEffect(() => {
+    if (error) {
+      if (error === "OAuthCallbackError") {
+        toast.error("Login was cancelled");
+      } else if (error === "access_denied") {
+        toast.error("You denied the access.");
+      } else {
+        toast.error("Login failed");
+      }
+      window.history.replaceState({}, "", "/");
+    }
+  }, [error]);
   return (
     <>
       <main className="flex-1 flex items-center justify-center px-8 py-12 relative">

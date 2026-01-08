@@ -16,6 +16,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  pages: {
+      signIn: '/',
+      error: '/',
+  },
   callbacks: {
     async session({ session, user }) {
       session.user.isValid = user.isValid;

@@ -38,6 +38,19 @@ services:
       - streamhub-network
     environment:
       - NODE_ENV=development
+  twitch-bot:
+    container_name: twitch-bot
+    build:
+      context: ../twitch-bot
+      dockerfile: ../twitch-bot/docker/dev.Dockerfile
+    restart: on-failure
+    env_file:
+      - ../twitch-bot/.env
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - streamhub-network
 
 volumes:
   postgres_data:

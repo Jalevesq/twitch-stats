@@ -11,7 +11,10 @@ class TokenStorage:
         self.pool: Optional[asyncpg.Pool] = None
 
     async def connect(self, database_url: str):
-        self.pool = await asyncpg.create_pool(database_url)
+        self.pool = await asyncpg.create_pool(
+            database_url,
+            statement_cache_size=0,
+        )
         print("[TokenStorage] Connected to database")
 
     async def close(self):

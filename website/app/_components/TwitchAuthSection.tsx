@@ -1,15 +1,15 @@
 "use client";
 
-import { useSession } from "@/app/_context/session-context";
 import Link from "next/link";
 import TwitchLoginButton from "@/app/_components/TwitchLoginButton";
+import { useSession } from "next-auth/react";
 
 export default function TwitchAuthSection() {
-  const session = useSession();
+  const { status } = useSession();
 
   return (
     <div className="flex flex-col items-center gap-6">
-      {session ? (
+      {status === "authenticated" ? (
         <Link
           href="/dashboard"
           className="group relative inline-flex items-center justify-center gap-3 px-12 py-5 text-lg font-semibold bg-[#9146ff] text-white border-none rounded-xl cursor-pointer transition-all duration-300 ease-out overflow-hidden hover:bg-[#772ce8] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_rgba(145,70,255,0.3)]"

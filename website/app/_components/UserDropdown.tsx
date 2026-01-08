@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,15 +11,8 @@ import {
   DropdownMenuTrigger,
 } from "@/app/_components/ui/dropdown-menu";
 import Image from "next/image";
-import { destroySession } from "@/app/_server/auth";
-import { toast } from "sonner";
-
-type User = {
-  id: string;
-  login: string;
-  displayName: string;
-  profileImage: string | null;
-};
+import { signOut } from "next-auth/react";
+import { User } from "@auth/core/types";
 
 type UserDropdownProps = {
   user: User;
@@ -29,15 +22,6 @@ type UserDropdownProps = {
 export function UserDropdown({ user }: UserDropdownProps) {
   const pathname = usePathname();
   const isDashboard = pathname.startsWith("/dashboard");
-  const router = useRouter();
-
-  const logout = async () => {
-    await destroySession();
-    toast.success("Logout successful");
-    if (pathname !== "/") {
-      router.push("/");
-    }
-  };
 
   return (
     <DropdownMenu>
@@ -46,8 +30,8 @@ export function UserDropdown({ user }: UserDropdownProps) {
           <Image
             width={64}
             height={64}
-            src={user.profileImage ?? "/default-avatar.png"}
-            alt={user.displayName}
+            src={user.image ?? "/default-avatar.png"}
+            alt={user.name!}
             className="w-10 h-10 rounded-full border-2 border-purple-500/50"
           />
         </button>
@@ -55,10 +39,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
 
       <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuLabel>
-          <p className="font-medium truncate">{user.displayName}</p>
-          <p className="text-sm text-muted-foreground truncate">
-            @{user.login}
-          </p>
+          <p className="font-medium truncate">{user.name}</p>
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
@@ -70,7 +51,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
         )}
 
         <DropdownMenuItem
-          onClick={() => logout()}
+          onClick={() => signOut({ redirect: true, redirectTo: "/" })}
           className="text-red-400 focus:text-red-400"
         >
           Sign out

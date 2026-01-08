@@ -1,12 +1,11 @@
 import { Archivo_Black, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { SessionProvider } from "@/app/_context/session-context";
 import { Header } from "@/app/_components/Header";
 import { ReactNode } from "react";
-import { getSession } from "@/app/_lib/session";
 import { Toaster } from "sonner";
-import Footer from "@/app/_components/Footer";
-import {Metadata} from "next";
+import { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/app/_server/auth";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -21,17 +20,16 @@ const archivoBlack = Archivo_Black({
 });
 
 export const metadata: Metadata = {
-    title: 'StreamHub',
-    description: 'Stream smarter with real-time analytics',
+  title: "StreamHub",
+  description: "Stream smarter with real-time analytics",
 };
-
 
 export default async function RootLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  const session = await getSession();
+  const session = await auth();
   return (
     <html lang="en">
       <body
@@ -39,7 +37,7 @@ export default async function RootLayout({
       >
         <Toaster richColors />
         <SessionProvider session={session}>
-          <Header user={session?.user} />
+          <Header session={session} />
           {children}
         </SessionProvider>
       </body>

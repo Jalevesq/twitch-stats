@@ -6,6 +6,7 @@ CLIENT_SECRET = os.environ["TWITCH_CLIENT_SECRET"]
 DATABASE_URL = os.environ["DATABASE_URL"]
 WEBSOCKET_URL = os.environ.get("TWITCH_WEBSOCKET_URL", None)
 SUBSCRIPTION_URL = os.environ.get("TWITCH_SUBSCRIPTION_URL", None)
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
 
 SCOPES = [
     AuthScope.BITS_READ,

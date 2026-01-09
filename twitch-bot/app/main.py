@@ -1,4 +1,5 @@
 import asyncio
+from logger import log
 
 from config import CLIENT_ID, CLIENT_SECRET, DATABASE_URL
 from storage import Database, TokenStorage, EventStorage
@@ -18,7 +19,7 @@ async def main():
         await bot.load_accounts_from_db()
 
         if not bot.accounts:
-            print("No valid accounts found. Exiting.")
+            log.info("No valid accounts found. Exiting.")
             return
 
         await bot.start()
@@ -27,7 +28,7 @@ async def main():
             await asyncio.sleep(1)
 
     except KeyboardInterrupt:
-        print("\nShutting down...")
+        log.info("\nShutting down...")
     finally:
         await bot.stop()
         await db.close()

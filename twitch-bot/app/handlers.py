@@ -8,7 +8,7 @@ from twitchAPI.object.eventsub import (
     ChannelPointsCustomRewardRedemptionAddEvent,
     ChannelUpdateEvent,
 )
-
+from logger import log
 from models import TwitchAccount
 from storage import EventStorage
 
@@ -16,15 +16,15 @@ from storage import EventStorage
 async def handle_event(account: TwitchAccount, event_type: str, event, event_storage: EventStorage):
     """Central event handler - logs and saves events to database."""
 
-    print(f"\n{'='*60}")
-    print(f"Event: {event_type.upper()} on {account.display_name}")
-    print(f"{'='*60}")
+    log.debug(f"\n{'='*60}")
+    log.debug(f"Event: {event_type.upper()} on {account.display_name}")
+    log.debug(f"{'='*60}")
 
     try:
         match event_type:
             case "follow":
                 e: ChannelFollowEvent = event
-                print(f"New follower: {e.event.user_name}")
+                log.debug(f"New follower: {e.event.user_name}")
                 await event_storage.save_follow(
                     channel_id=account.user_id,
                     follower_id=e.event.user_id,
@@ -34,7 +34,7 @@ async def handle_event(account: TwitchAccount, event_type: str, event, event_sto
 
             case "subscribe":
                 e: ChannelSubscribeEvent = event
-                print(f"New sub: {e.event.user_name} (Tier {e.event.tier})")
+                log.debug(f"New sub: {e.event.user_name} (Tier {e.event.tier})")
                 await event_storage.save_subscription(
                     channel_id=account.user_id,
                     subscriber_id=e.event.user_id,
@@ -45,7 +45,7 @@ async def handle_event(account: TwitchAccount, event_type: str, event, event_sto
 
             case "cheer":
                 e: ChannelCheerEvent = event
-                print(f"Cheer from {e.event.user_name or 'Anonymous'}: {e.event.bits} bits")
+                log.debug(f"Cheer from {e.event.user_name or 'Anonymous'}: {e.event.bits} bits")
                 await event_storage.save_cheer(
                     channel_id=account.user_id,
                     bits=e.event.bits,
@@ -56,7 +56,7 @@ async def handle_event(account: TwitchAccount, event_type: str, event, event_sto
 
             case "stream_online":
                 e: StreamOnlineEvent = event
-                print(f"Stream went LIVE! Type: {e.event.type}")
+                log.debug(f"Stream went LIVE! Type: {e.event.type}")
                 await event_storage.save_stream_status(
                     channel_id=account.user_id,
                     status="online",
@@ -66,7 +66,7 @@ async def handle_event(account: TwitchAccount, event_type: str, event, event_sto
 
             case "stream_offline":
                 e: StreamOfflineEvent = event
-                print(f"Stream went OFFLINE")
+                log.debug(f"Stream went OFFLINE")
                 await event_storage.save_stream_status(
                     channel_id=account.user_id,
                     status="offline",
@@ -74,7 +74,7 @@ async def handle_event(account: TwitchAccount, event_type: str, event, event_sto
 
             case "raid":
                 e: ChannelRaidEvent = event
-                print(f"Raid from {e.event.from_broadcaster_user_name}: {e.event.viewers} viewers")
+                log.debug(f"Raid from {e.event.from_broadcaster_user_name}: {e.event.viewers} viewers")
                 await event_storage.save_raid(
                     channel_id=account.user_id,
                     raider_id=e.event.from_broadcaster_user_id,
@@ -84,7 +84,7 @@ async def handle_event(account: TwitchAccount, event_type: str, event, event_sto
 
             case "redemption":
                 e: ChannelPointsCustomRewardRedemptionAddEvent = event
-                print(f"Redemption by {e.event.user_name}: {e.event.reward.title}")
+                log.debug(f"Redemption by {e.event.user_name}: {e.event.reward.title}")
                 await event_storage.save_redemption(
                     channel_id=account.user_id,
                     redeemer_id=e.event.user_id,
@@ -98,7 +98,7 @@ async def handle_event(account: TwitchAccount, event_type: str, event, event_sto
 
             case "channel_update":
                 e: ChannelUpdateEvent = event
-                print(f"Channel updated: {e.event.category_name} - {e.event.title}")
+                log.debug(f"Channel updated: {e.event.category_name} - {e.event.title}")
                 await event_storage.save_channel_update(
                     channel_id=account.user_id,
                     title=e.event.title,
@@ -108,7 +108,7 @@ async def handle_event(account: TwitchAccount, event_type: str, event, event_sto
                 )
 
             case _:
-                print(f"[{account.user_id}] Unknown event type: {event_type}")
+                log.warning(f"[{account.user_id}] Unknown event type: {event_type}")
 
     except Exception as ex:
-        print(f"[ERROR] Failed to save {event_type} event: {ex}")
+        log.error(f"[ERROR] Failed to save {event_type} event: {ex}")

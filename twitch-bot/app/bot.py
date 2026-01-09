@@ -1,5 +1,6 @@
 import asyncio
 
+from logger import log
 from twitchAPI.twitch import Twitch
 from twitchAPI.eventsub.websocket import EventSubWebsocket
 from twitchAPI.type import InvalidRefreshTokenException, UnauthorizedException
@@ -60,15 +61,15 @@ class MultiAccountBot:
             )
             self.accounts.append(account)
 
-            print(f"[{display_name}] Account initialized successfully")
+            log.debug(f"[{display_name}] Account initialized successfully")
             return account
 
         except (InvalidRefreshTokenException, UnauthorizedException) as e:
-            print(f"[{display_name}] Token invalid/revoked: {e}")
+            log.error(f"[{display_name}] Token invalid/revoked: {e}")
             await self.token_storage.mark_invalid(user_id)
             return None
         except Exception as e:
-            print(f"[{display_name}] Failed to initialize: {e}")
+            log.error(f"[{display_name}] Failed to initialize: {e}")
             return None
 
     async def subscribe_to_events(self, account: TwitchAccount):
@@ -123,14 +124,14 @@ class MultiAccountBot:
         for event_name, subscribe_fn in subscriptions:
             try:
                 sub_id = await subscribe_fn()
-                print(f"[{name}] Subscribed to {event_name} (ID: {sub_id})")
+                log.debug(f"[{name}] Subscribed to {event_name} (ID: {sub_id})")
             except Exception as e:
-                print(f"[{name}] Could not subscribe to {event_name}: {e}")
+                log.error(f"[{name}] Could not subscribe to {event_name}: {e}")
 
     async def load_accounts_from_db(self):
         """Load all valid accounts from the database."""
         users = await self.token_storage.get_all_valid_users()
-        print(f"Found {len(users)} valid user(s) in database")
+        log.info(f"Found {len(users)} valid user(s) in database")
 
         for user in users:
             await self.add_account(
@@ -148,9 +149,9 @@ class MultiAccountBot:
             await asyncio.sleep(0.5)
             await self.subscribe_to_events(account)
 
-        print(f"\n{'='*60}")
-        print(f"Bot started! Listening on {len(self.accounts)} account(s)")
-        print(f"{'='*60}\n")
+        log.info(f"\n{'='*60}")
+        log.info(f"Bot started! Listening on {len(self.accounts)} account(s)")
+        log.info(f"{'='*60}\n")
 
     async def stop(self):
         """Stop all connections and cleanup."""
@@ -159,5 +160,5 @@ class MultiAccountBot:
                 await account.eventsub.stop()
                 await account.twitch.close()
             except Exception as e:
-                print(f"Error closing {account.display_name}: {e}")
-        print("Bot stopped.")
+                log.error(f"Error closing {account.display_name}: {e}")
+        log.info("Bot stopped.")

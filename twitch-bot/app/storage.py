@@ -1,20 +1,29 @@
 from datetime import datetime, timezone, timedelta
 from typing import Optional
+
+from psycopg import AsyncConnection
+
 from logger import log
 from psycopg_pool import AsyncConnectionPool
 
 
 class Database:
-    """Single database connection manager using psycopg3."""
-
     def __init__(self):
-        self.pool: Optional[AsyncConnectionPool] = None
+        self.pool: AsyncConnectionPool | None = None
 
     async def connect(self, database_url: str):
-        self.pool = AsyncConnectionPool(database_url, min_size=2, max_size=10, open=False)
+        self.pool = AsyncConnectionPool(
+            database_url,
+            min_size=2,
+            max_size=10,
+            open=False,
+            configure=self._configure_connection
+        )
         await self.pool.open()
-        log.info("[Database] Connected")
+        log.info("Database connected")
 
+    async def _configure_connection(self, conn: AsyncConnection):
+        conn.prepare_threshold = None
     async def close(self):
         if self.pool:
             await self.pool.close()

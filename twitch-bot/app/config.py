@@ -4,6 +4,8 @@ from twitchAPI.type import AuthScope
 CLIENT_ID = os.environ["TWITCH_CLIENT_ID"]
 CLIENT_SECRET = os.environ["TWITCH_CLIENT_SECRET"]
 DATABASE_URL = os.environ["DATABASE_URL"]
+WEBSOCKET_URL = os.environ.get("TWITCH_WEBSOCKET_URL", None)
+SUBSCRIPTION_URL = os.environ.get("TWITCH_SUBSCRIPTION_URL", None)
 
 SCOPES = [
     AuthScope.BITS_READ,

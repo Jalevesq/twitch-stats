@@ -51,6 +51,16 @@ services:
         condition: service_healthy
     networks:
       - streamhub-network
+  twitch-cli:
+    container_name: twitch-cli
+    build:
+      context: ../twitch-cli
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "44747:44747"
+    networks:
+      - streamhub-network
 
 volumes:
   postgres_data:

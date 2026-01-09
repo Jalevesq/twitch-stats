@@ -4,7 +4,7 @@ from twitchAPI.twitch import Twitch
 from twitchAPI.eventsub.websocket import EventSubWebsocket
 from twitchAPI.type import InvalidRefreshTokenException, UnauthorizedException
 
-from config import SCOPES
+from config import SCOPES, WEBSOCKET_URL, SUBSCRIPTION_URL
 from models import TwitchAccount
 from storage import TokenStorage, EventStorage
 from handlers import handle_event
@@ -46,7 +46,11 @@ class MultiAccountBot:
             )
             twitch.user_auth_refresh_callback = make_token_callback(user_id)
 
-            eventsub = EventSubWebsocket(twitch)
+            eventsub = EventSubWebsocket(
+                twitch,
+                connection_url=WEBSOCKET_URL,
+                subscription_url=SUBSCRIPTION_URL,
+            )
 
             account = TwitchAccount(
                 user_id=user_id,
@@ -118,8 +122,8 @@ class MultiAccountBot:
 
         for event_name, subscribe_fn in subscriptions:
             try:
-                await subscribe_fn()
-                print(f"[{name}] Subscribed to {event_name}")
+                sub_id = await subscribe_fn()
+                print(f"[{name}] Subscribed to {event_name} (ID: {sub_id})")
             except Exception as e:
                 print(f"[{name}] Could not subscribe to {event_name}: {e}")
 

@@ -20,23 +20,7 @@ const sidebarItems = [
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const { data: session, status } = useSession();
-  const router = useRouter();
   const pathname = usePathname();
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      toast.warning("You are not logged in!");
-      router.push("/");
-    }
-  }, [session, router]);
-
-  if (status === "loading") {
-    return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-1">

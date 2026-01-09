@@ -17,6 +17,8 @@ export default function Home() {
         toast.error("Login was cancelled");
       } else if (error === "access_denied") {
         toast.error("You denied the access.");
+      } else if(error === "not_logged") {
+        toast.warning("You are not logged in!");
       } else {
         toast.error("Login failed");
       }

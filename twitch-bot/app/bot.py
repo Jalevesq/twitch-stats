@@ -149,9 +149,7 @@ class MultiAccountBot:
             await asyncio.sleep(0.5)
             await self.subscribe_to_events(account)
 
-        log.info(f"\n{'='*60}")
         log.info(f"Bot started! Listening on {len(self.accounts)} account(s)")
-        log.info(f"{'='*60}\n")
 
     async def stop(self):
         """Stop all connections and cleanup."""

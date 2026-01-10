@@ -112,6 +112,41 @@ class EventStorage:
             VALUES (%s, %s, %s, %s, %s, NOW())
         """, channel_id, title, category_id, category_name, language)
         log.debug(f"[EventStorage] Saved channel update: {category_name}")
+    async def save_resub(
+        self,
+        channel_id: str,
+        subscriber_id: str,
+        subscriber_name: str,
+        tier: str,
+        cumulative_months: int,
+        duration_months: int,
+        message: str | None = None,
+        streak_months: int | None = None,
+    ):
+        await self.db.execute("""
+            INSERT INTO twitch_resubs ("channelId", "subscriberId", "subscriberName", "tier", "message", "cumulativeMonths", "streakMonths", "durationMonths", "createdAt")
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, NOW())
+        """, channel_id, subscriber_id, subscriber_name, tier, message, cumulative_months, streak_months, duration_months)
+        log.debug(f"Saved resub: {subscriber_name} ({cumulative_months} months)")
+
+    async def save_gift_sub(
+        self,
+        channel_id: str,
+        tier: str,
+        total: int,
+        gifter_id: str | None = None,
+        gifter_name: str | None = None,
+        is_anonymous: bool = False,
+        cumulative_total: int | None = None,
+    ):
+        await self.db.execute("""
+            INSERT INTO twitch_gift_subs ("channelId", "gifterId", "gifterName", "isAnonymous", "tier", "total", "cumulativeTotal", "createdAt")
+            VALUES (%s, %s, %s, %s, %s, %s, %s, NOW())
+        """, channel_id, gifter_id, gifter_name, is_anonymous, tier, total, cumulative_total)
+        log.debug(f"Saved gift sub: {gifter_name or 'Anonymous'} gifted {total}")
+
+
+
 
 
 class TokenStorage:

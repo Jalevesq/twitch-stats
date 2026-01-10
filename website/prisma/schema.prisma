@@ -150,3 +150,36 @@ model TwitchChannelUpdate {
   @@index([createdAt])
   @@map("twitch_channel_updates")
 }
+
+model TwitchResub {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  channelId        String
+  subscriberId     String
+  subscriberName   String
+  tier             String
+  message          String?
+  cumulativeMonths Int
+  streakMonths     Int?
+  durationMonths   Int
+  createdAt        DateTime @default(now())
+
+  @@index([channelId])
+  @@index([createdAt])
+  @@map("twitch_resubs")
+}
+
+model TwitchGiftSub {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  channelId       String
+  gifterId        String?
+  gifterName      String?
+  isAnonymous     Boolean  @default(false)
+  tier            String
+  total           Int
+  cumulativeTotal Int?
+  createdAt       DateTime @default(now())
+
+  @@index([channelId])
+  @@index([createdAt])
+  @@map("twitch_gift_subs")
+}

@@ -89,3 +89,13 @@ export type TwitchRedemption = Prisma.TwitchRedemptionModel
  * 
  */
 export type TwitchChannelUpdate = Prisma.TwitchChannelUpdateModel
+/**
+ * Model TwitchResub
+ * 
+ */
+export type TwitchResub = Prisma.TwitchResubModel
+/**
+ * Model TwitchGiftSub
+ * 
+ */
+export type TwitchGiftSub = Prisma.TwitchGiftSubModel

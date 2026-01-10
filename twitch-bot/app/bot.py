@@ -119,6 +119,14 @@ class MultiAccountBot:
                 broadcaster_user_id=user_id,
                 callback=make_callback("channel_update"),
             )),
+            ("subscription_message", lambda: es.listen_channel_subscription_message(
+                broadcaster_user_id=user_id,
+                callback=make_callback("subscription_message"),
+            )),
+            ("subscription_gift", lambda: es.listen_channel_subscription_gift(
+                broadcaster_user_id=user_id,
+                callback=make_callback("subscription_gift"),
+            )),
         ]
 
         for event_name, subscribe_fn in subscriptions:

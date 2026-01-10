@@ -6,7 +6,7 @@ from twitchAPI.object.eventsub import (
     StreamOfflineEvent,
     ChannelRaidEvent,
     ChannelPointsCustomRewardRedemptionAddEvent,
-    ChannelUpdateEvent,
+    ChannelUpdateEvent, ChannelSubscriptionGiftEvent, ChannelSubscriptionMessageEvent,
 )
 from logger import log
 from models import TwitchAccount
@@ -104,7 +104,32 @@ async def handle_event(account: TwitchAccount, event_type: str, event, event_sto
                     category_name=e.event.category_name,
                     language=e.event.language,
                 )
+            case "subscription_gift":
+                e: ChannelSubscriptionGiftEvent = event
+                gifter = e.event.user_name if not e.event.is_anonymous else "Anonymous"
+                log.info(f"Gift sub: {gifter} gifted {e.event.total} subs")
+                await event_storage.save_gift_sub(
+                    channel_id=account.twitch_id,
+                    gifter_id=e.event.user_id if not e.event.is_anonymous else None,
+                    gifter_name=e.event.user_name if not e.event.is_anonymous else None,
+                    is_anonymous=e.event.is_anonymous,
+                    tier=e.event.tier,
+                    total=e.event.total,
+                    cumulative_total=e.event.cumulative_total,
+                )
 
+            case "subscription_message":
+                e: ChannelSubscriptionMessageEvent = event
+                log.info(f"Resub: {e.event.user_name} for {e.event.cumulative_months} months")
+                await event_storage.save_resub(
+                    channel_id=account.twitch_id,
+                    subscriber_id=e.event.user_id,
+                    subscriber_name=e.event.user_name,
+                    tier=e.event.tier,
+                    message=e.event.message.text if e.event.message else None,
+                    cumulative_months=e.event.cumulative_months,
+                    duration_months=e.event.duration_months,
+                )
             case _:
                 log.warning(f"[{account.twitch_id}] Unknown event type: {event_type}")
 

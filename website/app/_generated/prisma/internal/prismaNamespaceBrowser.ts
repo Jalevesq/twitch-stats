@@ -60,7 +60,9 @@ export const ModelName = {
   TwitchStream: 'TwitchStream',
   TwitchRaid: 'TwitchRaid',
   TwitchRedemption: 'TwitchRedemption',
-  TwitchChannelUpdate: 'TwitchChannelUpdate'
+  TwitchChannelUpdate: 'TwitchChannelUpdate',
+  TwitchResub: 'TwitchResub',
+  TwitchGiftSub: 'TwitchGiftSub'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -214,6 +216,37 @@ export const TwitchChannelUpdateScalarFieldEnum = {
 } as const
 
 export type TwitchChannelUpdateScalarFieldEnum = (typeof TwitchChannelUpdateScalarFieldEnum)[keyof typeof TwitchChannelUpdateScalarFieldEnum]
+
+
+export const TwitchResubScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  subscriberId: 'subscriberId',
+  subscriberName: 'subscriberName',
+  tier: 'tier',
+  message: 'message',
+  cumulativeMonths: 'cumulativeMonths',
+  streakMonths: 'streakMonths',
+  durationMonths: 'durationMonths',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchResubScalarFieldEnum = (typeof TwitchResubScalarFieldEnum)[keyof typeof TwitchResubScalarFieldEnum]
+
+
+export const TwitchGiftSubScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  gifterId: 'gifterId',
+  gifterName: 'gifterName',
+  isAnonymous: 'isAnonymous',
+  tier: 'tier',
+  total: 'total',
+  cumulativeTotal: 'cumulativeTotal',
+  createdAt: 'createdAt'
+} as const
+
+export type TwitchGiftSubScalarFieldEnum = (typeof TwitchGiftSubScalarFieldEnum)[keyof typeof TwitchGiftSubScalarFieldEnum]
 
 
 export const SortOrder = {

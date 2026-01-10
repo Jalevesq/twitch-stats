@@ -23,7 +23,7 @@ class MultiAccountBot:
 
     async def add_account(
             self,
-            user_id: str,
+            twitch_id: str,
             display_name: str,
             access_token: str,
             refresh_token: str,
@@ -45,7 +45,7 @@ class MultiAccountBot:
                 SCOPES,
                 refresh_token,
             )
-            twitch.user_auth_refresh_callback = make_token_callback(user_id)
+            twitch.user_auth_refresh_callback = make_token_callback(twitch_id)
 
             eventsub = EventSubWebsocket(
                 twitch,
@@ -54,7 +54,7 @@ class MultiAccountBot:
             )
 
             account = TwitchAccount(
-                user_id=user_id,
+                twitch_id=twitch_id,
                 display_name=display_name,
                 twitch=twitch,
                 eventsub=eventsub,
@@ -66,7 +66,7 @@ class MultiAccountBot:
 
         except (InvalidRefreshTokenException, UnauthorizedException) as e:
             log.error(f"[{display_name}] Token invalid/revoked: {e}")
-            await self.token_storage.mark_invalid(user_id)
+            await self.token_storage.mark_invalid(twitch_id)
             return None
         except Exception as e:
             log.error(f"[{display_name}] Failed to initialize: {e}")
@@ -76,7 +76,7 @@ class MultiAccountBot:
         """Subscribe to various EventSub events for an account."""
 
         es = account.eventsub
-        user_id = account.user_id
+        user_id = account.twitch_id
         name = account.display_name
         event_storage = self.event_storage
 
@@ -135,7 +135,7 @@ class MultiAccountBot:
 
         for user in users:
             await self.add_account(
-                user_id=user["id"],
+                twitch_id=user["twitchId"],
                 display_name=user["displayName"],
                 access_token=user["accessToken"],
                 refresh_token=user["refreshToken"],

@@ -25,9 +25,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, profile }) {
-      if (!AUTHORIZED_USERS.includes(profile?.sub as string)) {
-        return false;
-      }
+        const twitchId = profile?.sub as string;
+        const username = (profile as any)?.preferred_username;
+        if (!AUTHORIZED_USERS.includes(twitchId)) {
+          console.error(`Denied unauthorized user: [${twitchId}] ${username}`);
+          return false;
+        }
       await prisma.user.updateMany({
         where: { id: user.id },
         data: { isValid: true },
@@ -50,4 +53,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
   },
+    events: {
+        async linkAccount({ user, account, profile }) {
+            try {
+                await fetch('http://twitch-bot:8000/accounts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({twitch_id: account?.providerAccountId,}),
+                });
+            } catch (error) {
+                console.error('Failed to notify bot:', error);
+            }
+        },
+    },
 });

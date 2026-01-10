@@ -123,7 +123,7 @@ class TokenStorage:
     async def get_all_valid_users(self) -> list[dict]:
         return await self.db.fetch("""
             SELECT 
-                a."providerAccountId" as id,
+                a."providerAccountId" as "twitchId",
                 a."access_token" as "accessToken",
                 a."refresh_token" as "refreshToken",
                 u."name" as "displayName"
@@ -171,3 +171,18 @@ class TokenStorage:
             )
         """, twitch_user_id)
         log.info(f"[TokenStorage] Marked user invalid for Twitch ID {twitch_user_id}")
+    async def get_user_by_twitch_id(self, twitch_user_id: str) -> dict | None:
+        row = await self.db.fetchrow("""
+            SELECT 
+                a."providerAccountId" as "twitchId",
+                a."access_token" as "accessToken",
+                a."refresh_token" as "refreshToken",
+                u."name" as "displayName"
+            FROM "Account" a
+            JOIN "User" u ON a."userId" = u.id
+            WHERE a."providerAccountId" = %s
+              AND a."provider" = 'twitch'
+              AND u."isValid" = true
+              AND a."refresh_token" IS NOT NULL
+        """, twitch_user_id)
+        return row

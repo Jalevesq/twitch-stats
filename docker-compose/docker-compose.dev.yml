@@ -38,6 +38,7 @@ services:
       - streamhub-network
     environment:
       - NODE_ENV=development
+
   twitch-bot:
     container_name: twitch-bot
     build:
@@ -46,11 +47,14 @@ services:
     restart: on-failure
     env_file:
       - ../twitch-bot/.env
+    ports:
+      - "8000:8000"
     depends_on:
       database:
         condition: service_healthy
     networks:
       - streamhub-network
+
   twitch-cli:
     container_name: twitch-cli
     build:

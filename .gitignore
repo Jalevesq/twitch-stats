@@ -45,3 +45,4 @@ cerbot/
 __pycache__/
 *.pyc
 data/
+CLAUDE.md
